@@ -1,33 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>공유된 코드 스니펫</title>
+  <title>Learning 메이트 - 공유된 코드</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; }
-    .snippet { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; }
-    .controls { margin-bottom: 1rem; }
-    button { margin-right: 1rem; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      padding: 2rem;
+    }
+
+    .snippet {
+      background-color: #fff;
+      border: 1px solid #dbe1e7;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .snippet:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      color: #34568B;
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      margin-bottom: 1.5rem;
+    }
+
+    .controls button {
+      background-color: #e0e7ff;
+      border: none;
+      color: #1e40af;
+      padding: 8px 14px;
+      margin-right: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .controls button:hover {
+      background-color: #c7d2fe;
+    }
+
+    a {
+      text-decoration: none;
+      color: #1e3a8a;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    pre {
+      background-color: #f0f4f8;
+      border-left: 4px solid #1e40af;
+      padding: 1rem;
+      font-family: 'Courier New', monospace;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    .snippet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
   </style>
 </head>
 <body>
-  <h1>📚 ByteStash 공유 코드</h1>
+  <h1 style="font-size: 2rem;">
+    📘<strong>Learning 메이트</strong> 공유 코드
+  </h1>
 
   <div class="controls">
     <a href="?filter=all"><button>📅 최신순 보기</button></a>
     <a href="?filter=error"><button>🚨 error 포함만 보기</button></a>
   </div>
-
-  {% for snippet in snippets %}
-    <div class="snippet">
-      <h2>
-        <a href="/snippets/{{ snippet.id }}/">{{ snippet.title }}</a>
-      </h2>
-      <p>{{ snippet.description }}</p>
-      <p><strong>작성자:</strong> {{ snippet.username }}</p>
-      <p><small>업데이트: {{ snippet.updated_at }}</small></p>
-    </div>
-  {% empty %}
-    <p>데이터가 없습니다.</p>
-  {% endfor %}
+  <div class="snippet-grid">
+    {% for snippet in snippets %}
+      <div class="snippet">
+        <h2>
+          <a href="/snippets/{{ snippet.id }}/">{{ snippet.title }}</a>
+        </h2>
+        <p>{{ snippet.description }}</p>
+        <p><strong>작성자:</strong> {{ snippet.username }}</p>
+        <p><small>업데이트: {{ snippet.updated_at }}</small></p>
+      </div>
+    {% empty %}
+      <p>데이터가 없습니다.</p>
+    {% endfor %}
+  </div>
 </body>
 </html>

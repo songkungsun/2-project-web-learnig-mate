@@ -3,29 +3,76 @@
 <head>
   <title>{{ snippet.title }}</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      padding: 2rem;
+    }
+
+    .container {
+      background-color: #fff;
+      border: 1px solid #dbe1e7;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      margin-top: 2rem;
+      color: #1e3a8a;
+    }
+
     pre {
-      background: #f5f5f5;
+      background-color: #f0f4f8;
+      border-left: 4px solid #1e40af;
       padding: 1rem;
-      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      border-radius: 6px;
       overflow-x: auto;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #1e40af;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <h1>{{ snippet.title }}</h1>
-  <p>{{ snippet.description }}</p>
-  <p><strong>작성자:</strong> {{ snippet.username }}</p>
-  <p><small>업데이트: {{ snippet.updated_at }}</small></p>
+  <div class="container">
+    <h1>{{ snippet.title }}</h1>
+    <p class="meta"><strong>작성자:</strong> {{ snippet.username }} | <small>{{ snippet.updated_at }}</small></p>
+    <p>{{ snippet.description }}</p>
 
-  <h3>코드:</h3>
-  {% for block in snippet.code_blocks %}
-    <h4>{{ block.language }}</h4>
-    <pre><code>{{ block.code }}</code></pre>
-  {% empty %}
-    <p>코드가 없습니다.</p>
-  {% endfor %}
+    <h3>코드:</h3>
+    {% for block in snippet.code_blocks %}
+      <h4>{{ block.language }}</h4>
+      <pre><code>{{ block.code }}</code></pre>
+    {% empty %}
+      <p>코드가 없습니다.</p>
+    {% endfor %}
 
-  <a href="/snippets/">⬅️ 목록으로 돌아가기</a>
+    <a href="/snippets/">⬅️ 목록으로 돌아가기</a>
+  </div>
 </body>
 </html>
