@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ snippet.title }}</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{ snippet.title }}</h1>
+  <p>{{ snippet.description }}</p>
+  <p><strong>작성자:</strong> {{ snippet.username }}</p>
+  <p><small>업데이트: {{ snippet.updated_at }}</small></p>
+
+  <h3>코드:</h3>
+  {% for block in snippet.code_blocks %}
+    <h4>{{ block.language }}</h4>
+    <pre><code>{{ block.code }}</code></pre>
+  {% empty %}
+    <p>코드가 없습니다.</p>
+  {% endfor %}
+
+  <a href="/snippets/">⬅️ 목록으로 돌아가기</a>
+</body>
+</html>

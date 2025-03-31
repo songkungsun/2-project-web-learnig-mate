@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+*.pyd
+*.log
+*.sqlite3
+*.db
+
+# Byte-compiled / cache / logs
+*.log
+*.pot
+*.mo
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Django stuff
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+
+# FastAPI (optional logs/db)
+*.db
+instance/
+fastapi-server/__pycache__/
+
+# SQLite DB from ByteStash
+bytestash-docker/data/snippets/snippets.db
+bytestash-docker/data/snippets/*.db
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Docker
+*.pid
+*.seed
+*.swp
+docker-compose.override.yml
+
+# macOS, Linux, Windows
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Migrations (optional)
+**/migrations/*.py
+**/migrations/__pycache__/
+
+# Jupyter
+.ipynb_checkpoints/
