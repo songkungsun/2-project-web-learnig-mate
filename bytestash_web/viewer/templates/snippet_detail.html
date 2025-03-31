@@ -30,13 +30,44 @@
       color: #1e3a8a;
     }
 
+    .meta {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
     pre {
       background-color: #f0f4f8;
       border-left: 4px solid #1e40af;
-      padding: 1rem;
-      font-family: 'Courier New', monospace;
+      padding: 1.5rem 1rem 1rem 1rem; /* 위 여백 확보 */
       border-radius: 6px;
       overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+    }
+
+    .code-block {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: #e0e7ff;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: #1e40af;
+      transition: background-color 0.2s ease;
+      z-index: 1;
+    }
+
+    .copy-btn:hover {
+      background-color: #c7d2fe;
     }
 
     a {
@@ -50,29 +81,43 @@
     a:hover {
       text-decoration: underline;
     }
-
-    .meta {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>{{ snippet.title }}</h1>
-    <p class="meta"><strong>작성자:</strong> {{ snippet.username }} | <small>{{ snippet.updated_at }}</small></p>
+    <p class="meta">
+      <strong>작성자:</strong> {{ snippet.username }} | <small>{{ snippet.updated_at }}</small>
+    </p>
     <p>{{ snippet.description }}</p>
 
     <h3>코드:</h3>
     {% for block in snippet.code_blocks %}
-      <h4>{{ block.language }}</h4>
-      <pre><code>{{ block.code }}</code></pre>
+      <div class="code-block">
+        <h4>{{ block.language }}</h4>
+        <button class="copy-btn" onclick="copyCode(this)">📋 복사</button>
+        <pre><code>{{ block.code }}</code></pre>
+      </div>
     {% empty %}
       <p>코드가 없습니다.</p>
     {% endfor %}
 
     <a href="/snippets/">⬅️ 목록으로 돌아가기</a>
   </div>
+
+  <script>
+    function copyCode(button) {
+      const codeElement = button.nextElementSibling.querySelector('code');
+      const text = codeElement.innerText;
+
+      navigator.clipboard.writeText(text).then(() => {
+        button.innerText = "✅ 복사됨!";
+        setTimeout(() => button.innerText = "📋 복사", 2000);
+      }).catch(err => {
+        console.error("복사 실패:", err);
+        alert("복사에 실패했어요!");
+      });
+    }
+  </script>
 </body>
 </html>

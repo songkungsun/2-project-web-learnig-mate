@@ -78,10 +78,16 @@
   <h1 style="font-size: 2rem;">
     📘<strong>Learning 메이트</strong> 공유 코드
   </h1>
-
+  <form method="get" action="/snippets/" style="margin-bottom: 1rem;">
+    <input type="text" name="q" placeholder="검색어 입력" value="{{ search_query }}"
+           style="padding: 6px; border-radius: 8px; border: 1px solid #ccc;" />
+    <button type="submit" style="padding: 6px 12px; border-radius: 8px; background-color: #1e40af; color: white; border: none;">
+      🔍 검색
+    </button>
+  </form>
   <div class="controls">
     <a href="?filter=all"><button>📅 최신순 보기</button></a>
-    <a href="?filter=error"><button>🚨 error 포함만 보기</button></a>
+    <a href="?filter=error"><button>🚨 error 코드만 보기</button></a>
   </div>
   <div class="snippet-grid">
     {% for snippet in snippets %}

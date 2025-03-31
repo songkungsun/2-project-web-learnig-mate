@@ -45,12 +45,13 @@ def get_snippet_detail(snippet_id: int):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT s.id, s.title, s.description, s.updated_at, u.username, f.code, f.language
-        FROM snippets s
-        LEFT JOIN users u ON s.user_id = u.id
-        LEFT JOIN fragments f ON f.snippet_id = s.id
-        WHERE s.id = ?
-        ORDER BY f.position
+    SELECT s.id, s.title, s.description, s.updated_at,
+           u.username, f.code, f.language
+    FROM snippets s
+    LEFT JOIN users u ON s.user_id = u.id
+    LEFT JOIN fragments f ON f.snippet_id = s.id
+    WHERE s.id = ?
+    ORDER BY f.position
     """, (snippet_id,))
     rows = cursor.fetchall()
     conn.close()
