@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.views.generic import RedirectView  # ✅ 추가
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('viewer.urls')),
+    path('', RedirectView.as_view(url='/snippets/', permanent=True)),  # ✅ 루트 리디렉션
 ]

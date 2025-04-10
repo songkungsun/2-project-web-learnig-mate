@@ -1,13 +1,12 @@
-# main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import sqlite3
 from typing import List
 from pydantic import BaseModel
-from fastapi import HTTPException
 
 app = FastAPI()
 
-DB_PATH = "../bytestash-docker/data/snippets/snippets.db"
+# ✅ SQLite 읽기 전용 (mode=ro)
+DB_PATH = "file:/data/snippets/snippets.db?mode=ro"
 
 class Snippet(BaseModel):
     id: int
@@ -17,15 +16,13 @@ class Snippet(BaseModel):
 
 @app.get("/snippets/", response_model=List[Snippet])
 def get_snippets():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, uri=True)
     cursor = conn.cursor()
-
     cursor.execute("""
         SELECT s.id, s.title, s.description, s.updated_at
         FROM snippets s
         ORDER BY s.updated_at DESC
     """)
-    
     rows = cursor.fetchall()
     conn.close()
 
@@ -35,14 +32,12 @@ def get_snippets():
             "title": row[1],
             "description": row[2] or "",
             "updated_at": row[3]
-        }
-        for row in rows
+        } for row in rows
     ]
-
 
 @app.get("/snippets/{snippet_id}")
 def get_snippet_detail(snippet_id: int):
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, uri=True)
     cursor = conn.cursor()
     cursor.execute("""
     SELECT s.id, s.title, s.description, s.updated_at,

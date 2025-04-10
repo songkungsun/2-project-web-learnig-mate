@@ -1,18 +1,23 @@
 import requests
 from django.shortcuts import render
+from django.conf import settings
+
+API_BASE_URL = settings.SNIPPET_API_URL
 
 def snippet_list(request):
-    response = requests.get("http://localhost:8000/snippets/")
-    snippets = response.json()
-
     filter_option = request.GET.get("filter", "all")
     search_query = request.GET.get("q", "")
 
-    # error 필터
+    try:
+        response = requests.get(f"{API_BASE_URL}/snippets/")
+        response.raise_for_status()
+        snippets = response.json()
+    except Exception:
+        snippets = []
+
     if filter_option == "error":
         snippets = [s for s in snippets if "error" in s["title"].lower()]
 
-    # 검색 필터
     if search_query:
         snippets = [
             s for s in snippets
@@ -26,9 +31,11 @@ def snippet_list(request):
         'search_query': search_query,
     })
 
+
 def snippet_detail(request, snippet_id):
     try:
-        response = requests.get(f"http://localhost:8000/snippets/{snippet_id}")
+        response = requests.get(f"{API_BASE_URL}/snippets/{snippet_id}")
+        response.raise_for_status()
         snippet = response.json()
     except Exception:
         snippet = None
