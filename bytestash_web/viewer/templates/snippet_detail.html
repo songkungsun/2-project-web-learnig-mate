@@ -3,94 +3,223 @@
 <head>
   <title>{{ snippet.title }}</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
-      padding: 2rem;
-    }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #000000;
+    color: #616161;
+    padding: 2rem;
+  }
 
-    .container {
-      background-color: #fff;
-      border: 1px solid #dbe1e7;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      padding: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+  .container {
+    background-color: #fff;
+    border: 1px solid #dbe1e7;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
-    h1 {
-      color: #1e40af;
-      margin-bottom: 0.5rem;
-    }
+  h1 {
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+  }
 
-    h3 {
-      margin-top: 2rem;
-      color: #1e3a8a;
-    }
+  h3 {
+    margin-top: 2rem;
+    color: #1e3a8a;
+  }
 
-    .meta {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
+  .meta {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+  }
 
-    pre {
-      background-color: #f0f4f8;
-      border-left: 4px solid #1e40af;
-      padding: 1.5rem 1rem 1rem 1rem; /* 위 여백 확보 */
-      border-radius: 6px;
-      overflow-x: auto;
-      font-family: 'Courier New', monospace;
-      white-space: pre-wrap;
-    }
+  pre {
+    background-color: #f0f4f8;
+    border-left: 4px solid #1e40af;
+    padding: 1.5rem 1rem 1rem 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
 
-    .code-block {
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
+  .code-block {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
 
-    .copy-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background-color: #e0e7ff;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      color: #1e40af;
-      transition: background-color 0.2s ease;
-      z-index: 1;
-    }
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #e0e7ff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #1e40af;
+    transition: background-color 0.2s ease;
+    z-index: 1;
+  }
 
-    .copy-btn:hover {
-      background-color: #c7d2fe;
-    }
+  .copy-btn:hover {
+    background-color: #c7d2fe;
+  }
 
-    a {
-      display: inline-block;
-      margin-top: 2rem;
-      color: #1e40af;
-      text-decoration: none;
-      font-weight: bold;
-    }
+  a {
+    display: inline-block;
+    margin-top: 2rem;
+    margin-bottom: 2rem; /* 👈 이 한 줄만 추가해도 충분함 */
+    color: #1e40af;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* 댓글 폼 및 댓글 목록 스타일 */
+  .comment-section {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 3rem; /* 댓글과 목록으로 돌아가기 버튼 간격 늘리기 */
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .comment-form {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbe1e7;
+    border-radius: 6px;
+    background-color: #f0f4f8;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: #1e40af;
+    outline: none;
+    box-shadow: 0 0 8px rgba(30, 64, 175, 0.2);
+  }
+
+  .form-group input::placeholder, .form-group textarea::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+
+  /* 댓글 작성 버튼 스타일 (원래 크기로 되돌림) */
+  .comment-submit-btn {
+    background-color: #1e40af;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: auto; /* 기본 크기 */
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .comment-submit-btn:hover {
+    background-color: #1d3a8a;
+  }
+
+  /* 댓글 목록 스타일 */
+  .comment-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .comment-list li {
+    background-color: #fff;
+    margin-bottom: 1.5rem; /* 목록 간격 늘리기 */
+    padding: 1.5rem;
+    border: 1px solid #dbe1e7;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .comment-list strong {
+    color: #1e3a8a;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .comment-list small {
+    font-size: 0.85rem;
+    color: #888;
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .comment-list p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+  }
+
+  /* 해결 버튼 스타일 (댓글 버튼과 동일하게) */
+.resolve-btn {
+  background-color: #1e40af;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  margin-left: 1rem;
+}
+
+.resolve-btn:hover {
+  background-color: #1d3a8a;
+}
+
+/* 비활성화된 해결됨 버튼 */
+.resolve-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+</style>
 </head>
 <body>
   <div class="container">
-    <h1>{{ snippet.title }}</h1>
+    <h1>{{ snippet.title }}
+      {% if is_resolved %}
+        <button class="resolve-btn" disabled>해결됨</button>
+      {% else %}
+        <form method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" name="resolve" class="resolve-btn">해결</button>
+        </form>
+      {% endif %}
+    </h1>
     <p class="meta">
       <strong>작성자:</strong> {{ snippet.username }} | <small>{{ snippet.updated_at }}</small>
     </p>
     <p>{{ snippet.description }}</p>
-
+    
     <h3>코드:</h3>
     {% for block in snippet.code_blocks %}
       <div class="code-block">
@@ -103,6 +232,33 @@
     {% endfor %}
 
     <a href="/snippets/">⬅️ 목록으로 돌아가기</a>
+
+    <!-- 댓글 섹션 -->
+    <div class="comment-section">
+      <h3>댓글 달기</h3>
+      <form method="post" class="comment-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" name="author" placeholder="작성자 이름" required>
+        </div>
+        <div class="form-group">
+          <textarea name="content" placeholder="댓글을 작성해 주세요..." rows="4" required></textarea>
+        </div>
+        <button type="submit" class="comment-submit-btn">댓글 작성</button>
+      </form>
+
+      <ul class="comment-list">
+        {% for comment in comments %}
+          <li>
+            <strong>{{ comment.author }}</strong>
+            <small>{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+            <p>{{ comment.content }}</p>
+          </li>
+        {% empty %}
+          <li>아직 댓글이 없습니다.</li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 
   <script>

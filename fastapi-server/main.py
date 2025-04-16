@@ -6,7 +6,8 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # ✅ SQLite 읽기 전용 (mode=ro)
-DB_PATH = "file:/data/snippets/snippets.db?mode=ro"
+# DB_PATH = "file:/data/snippets/snippets.db?mode=ro"
+DB_PATH = "file:/home/soldesk/learning-mate/bytestash-docker/data/snippets/snippets.db?mode=ro"  # 테스트용 배포때는 지우기
 
 class Snippet(BaseModel):
     id: int
@@ -18,11 +19,18 @@ class Snippet(BaseModel):
 def get_snippets():
     conn = sqlite3.connect(DB_PATH, uri=True)
     cursor = conn.cursor()
-    cursor.execute("""
+
+    # 기본 쿼리
+    query = """
         SELECT s.id, s.title, s.description, s.updated_at
         FROM snippets s
-        ORDER BY s.updated_at DESC
-    """)
+    """
+    
+    # 최신순으로 정렬
+    query += " ORDER BY s.updated_at DESC"
+    
+    # 쿼리 실행
+    cursor.execute(query)
     rows = cursor.fetchall()
     conn.close()
 

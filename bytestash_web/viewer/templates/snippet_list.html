@@ -5,8 +5,8 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
+      background-color: #000000;
+      color: #616161;
       padding: 2rem;
     }
 
@@ -25,7 +25,7 @@
     }
 
     h1 {
-      color: #34568B;
+      color: #afbfd9;
       margin-bottom: 1rem;
     }
 
@@ -88,6 +88,7 @@
   <div class="controls">
     <a href="?filter=all"><button>📅 최신순 보기</button></a>
     <a href="?filter=error"><button>🚨 error 코드만 보기</button></a>
+    <a href="?filter=resolved"><button>✅ 해결된 문제만 보기</button></a>
   </div>
   <div class="snippet-grid">
     {% for snippet in snippets %}
